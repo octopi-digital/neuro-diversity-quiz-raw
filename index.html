@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neuro Divergent Quiz</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom styles for smooth transitions -->
+    <style>
+      .rotate-180 {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="shadow-md mb-10">
+      <div
+        class="py-2 max-w-screen-lg mx-auto flex justify-between items-center px-5 lg:px-0"
+      >
+        <!-- Logo -->
+        <div>
+          <img
+            src="./assests/neurodiversity-logo-black.png"
+            class="h-16"
+            alt="Logo"
+          />
+        </div>
+
+        <!-- Hamburger Menu for Mobile -->
+        <div class="md:hidden">
+          <button class="text-gray-900 focus:outline-none" id="hamburger-btn">
+            <!-- Hamburger Icon -->
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-4">
+          <div class="group relative">
+            <p
+              class="text-gray-900 group-hover:bg-[#FF5300] hover:text-white px-2 py-1 rounded-md transition-colors duration-200"
+            >
+              Traits
+            </p>
+          </div>
+          <div class="group relative">
+            <p
+              class="text-gray-900 group-hover:bg-[#FF5300] hover:text-white px-2 py-1 rounded-md transition-colors duration-200"
+            >
+              Conditions
+            </p>
+          </div>
+          <div class="group relative">
+            <p
+              class="text-gray-900 group-hover:bg-[#FF5300] hover:text-white px-2 py-1 rounded-md transition-colors duration-200"
+            >
+              Diagnosis
+            </p>
+            <ul
+              class="absolute left-0 mt-2 hidden group-hover:block bg-white shadow-lg rounded-md p-2"
+            >
+              <li>
+                <p class="block px-4 py-2 text-gray-700 hover:text-gray-900">
+                  As a Child
+                </p>
+              </li>
+              <li>
+                <p class="block px-4 py-2 text-gray-700 hover:text-gray-900">
+                  As an Adult
+                </p>
+              </li>
+              <li>
+                <p class="block px-4 py-2 text-gray-700 hover:text-gray-900">
+                  Self Diagnosis
+                </p>
+              </li>
+            </ul>
+          </div>
+          <button
+            class="py-1 px-3 bg-blue-500 hover:bg-blue-600 transition-colors duration-200 active:scale-95 text-white rounded-full ml-6"
+          >
+            Donate
+          </button>
+          <img
+            src="./assests/platinum-transparency-2024.png"
+            class="h-16 ml-2"
+            alt="Transparency"
+          />
+        </div>
+
+        <!-- Mobile Menu -->
+        <div
+          id="mobile-menu"
+          class="md:hidden absolute top-16 right-4 w-3/5 sm:w-1/3 max-h-[90vh] overflow-y-auto bg-white border shadow-2xl rounded-md z-50 hidden"
+        >
+          <ul class="w-full flex flex-col items-start p-4 divide-y">
+            <li class="w-full">
+              <p
+                class="text-gray-900 w-full p-4 hover:bg-gray-200 rounded-md flex justify-between items-center"
+                data-target="traits"
+              >
+                Traits
+              </p>
+            </li>
+            <li class="w-full">
+              <p
+                class="text-gray-900 w-full p-4 hover:bg-gray-200 rounded-md flex justify-between items-center"
+                data-target="conditions"
+              >
+                Conditions
+              </p>
+            </li>
+            <li class="w-full">
+              <p
+                class="text-gray-900 w-full p-4 hover:bg-gray-200 rounded-md flex justify-between items-center"
+                onclick="toggleSubmenu('diagnosis')"
+              >
+                Diagnosis
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="transition duration-200"
+                  id="arrow-diagnosis"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </p>
+              <ul
+                id="submenu-diagnosis"
+                class="pl-4 hidden transition-all duration-300 ease-in-out"
+              >
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                    >As a Child</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                    >As an Adult</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                    >Self Diagnosis</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <button
+              class="py-2 px-3 mt-6 w-full bg-blue-500 hover:bg-blue-600 transition-colors duration-200 active:scale-95 text-white rounded-full"
+            >
+              Donate
+            </button>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mobile menu toggle
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      hamburgerBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Submenu toggle
+      function toggleSubmenu(menuId) {
+        const submenu = document.getElementById(`submenu-${menuId}`);
+        const arrow = document.getElementById(`arrow-${menuId}`);
+
+        submenu.classList.toggle("hidden");
+        arrow.classList.toggle("rotate-180");
+      }
+
+      // Close mobile menu if clicked outside
+      document.addEventListener("click", function (event) {
+        if (
+          !mobileMenu.contains(event.target) &&
+          !hamburgerBtn.contains(event.target)
+        ) {
+          mobileMenu.classList.add("hidden");
+        }
+      });
+    </script>
+  </body>
+</html>

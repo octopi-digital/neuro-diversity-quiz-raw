@@ -2876,7 +2876,7 @@
           // Find the question based on question_id
           const question = questions[0].sections
             .flatMap((section) => section.questions)
-            .find((q) => q.question_id === parseInt(key)); // Use question_id to find the correct question
+            .find((q) => q.question_id == key);
 
           if (question) {
             // Determine the section of the found question
@@ -2914,6 +2914,7 @@
                 default:
                   console.warn(`Unrecognized section: ${sectionName}`);
               }
+              score = newScore;
             }
           } else {
             console.log("Question not found for Question ID:", key);
@@ -2943,6 +2944,8 @@
         const totalExpressed = score.EI + score.EC + score.EA;
         const totalWanted = score.WI + score.WC + score.WA;
         const overall = totalExpressed + totalWanted;
+
+        console.log("score", score);
 
         const resultHTML = `
           <div class="space-y-3 grid grid-cols-1 mx-auto overflow-x-auto px-5 pb-2">

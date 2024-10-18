@@ -190,7 +190,7 @@
 
     <!-- Patient Info Form Starts -->
     <div
-      class="f shadow-md my-auto bg-gray-100 p-5 md:p-8 lg:p-10 max-w-lg mx-auto rounded-lg"
+      class="f shadow-md my-auto bg-gray-100 p-5 m-5 md:p-8 lg:p-10 max-w-lg mx-auto rounded-lg bg-white"
       id="patient-info"
     >
       <h1
@@ -206,7 +206,7 @@
             id="name"
             name="name"
             placeholder="Enter your name"
-            class="w-full p-2 focus:outline-blue-500 border-gray-300 rounded"
+            class="w-full p-2 focus:outline-blue-500 border-gray-300 rounded bg-gray-200"
           />
           <p id="name-error" class="text-red-600 text-sm hidden"></p>
         </div>
@@ -218,7 +218,7 @@
             id="email"
             name="email"
             placeholder="Enter your email address"
-            class="w-full p-2 focus:outline-blue-500 border-gray-300 rounded"
+            class="w-full p-2 focus:outline-blue-500 border-gray-300 rounded bg-gray-200"
           />
           <p id="email-error" class="text-red-600 text-sm hidden"></p>
         </div>
@@ -3054,17 +3054,19 @@
 
       function renderQuiz() {
         document.getElementById("quiz-app").innerHTML = `
-          <div class="max-w-screen-sm mx-auto p-8 bg-white shadow-md rounded">
+          <div class="max-w-screen-sm mx-auto  p-5">
             <h1 class="text-2xl font-bold text-center mb-6">Neurodivergent Workplace Inclusion Test</h1>
             ${questions[0].sections
               .map(
                 (section) => `
-              <div class="mb-6">
-                <h2 class="text-xl font-semibold mb-2">${section.name}</h2>
+              <div class="mb-6 bg-white rounded-lg p-5">
+                <h2 class="text-xl font-semibold mb-2 -mt-1">${
+                  section.name
+                }</h2>
                 ${section.questions
                   .map(
                     (question, questionIndex) => `
-                  <div class="mb-4 bg-gray-200">
+                  <div class="mb-4 bg-gray-200 p-4 rounded-lg">
                     <p class="font-medium">${questionIndex + 1}. ${
                       question.question
                     }</p>

@@ -250,6 +250,134 @@
     >
       <!-- Results will be injected here -->
     </div>
+    <!-- Graph Section -->
+    <div class="pb-16 max-w-screen-lg mx-auto px-5 lg:px-0">
+      <div class="py-16 max-w-screen-lg mx-auto space-y-16">
+        <!-- Social Inclusion section -->
+        <div class="grid grid-cols-1 gap-4">
+          <div>
+            <p class="text-xl font-semibold mb-4">Social Inclusion</p>
+
+            <!-- Graph container -->
+            <div class="grid grid-cols-6 items-center gap-4">
+              <!-- Labels -->
+              <div class="col-span-1">
+                <p class="text-right opacity-60">Expressed</p>
+              </div>
+
+              <!-- Expressed Bar -->
+              <div class="ml-5 md:ml-0 col-span-5 flex items-center gap-2">
+                <div
+                  class="w-full relative h-10 bg-gray-200 rounded overflow-hidden"
+                >
+                  <div
+                    id="ei-bar"
+                    class="absolute top-0 left-0 h-full bg-orange-500 bar"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <span id="ei-score">0%</span>
+              </div>
+            </div>
+
+            <!-- Wanted Section -->
+            <div class="grid grid-cols-6 items-center gap-4 mt-4">
+              <!-- Labels -->
+              <div class="col-span-1">
+                <p class="text-right opacity-60">Wanted</p>
+              </div>
+
+              <!-- Wanted Bar -->
+              <div class="ml-5 md:ml-0 col-span-5 flex items-center gap-2">
+                <div
+                  class="w-full relative h-10 bg-gray-200 rounded overflow-hidden"
+                >
+                  <div
+                    id="wi-bar"
+                    class="absolute top-0 left-0 h-full bg-blue-500 bar"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <span id="wi-score">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decision Making section -->
+        <div class="grid grid-cols-1 gap-4">
+          <div>
+            <p class="text-xl font-semibold mb-4">Decision Making</p>
+
+            <!-- Expressed Bar -->
+            <div class="grid grid-cols-6 items-center gap-4">
+              <div class="col-span-1">
+                <p class="text-right opacity-60">Expressed</p>
+              </div>
+
+              <div class="ml-5 md:ml-0 col-span-5 flex items-center gap-2">
+                <div
+                  class="w-full relative h-10 bg-gray-200 rounded overflow-hidden"
+                >
+                  <div
+                    id="ec-bar"
+                    class="absolute top-0 left-0 h-full bg-orange-500 bar"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <span id="ec-score">0%</span>
+              </div>
+            </div>
+
+            <!-- Wanted Section -->
+            <div class="grid grid-cols-6 items-center gap-4 mt-4">
+              <div class="col-span-1">
+                <p class="text-right opacity-60">Wanted</p>
+              </div>
+
+              <div class="ml-5 md:ml-0 col-span-5 flex items-center gap-2">
+                <div
+                  class="w-full relative h-10 bg-gray-200 rounded overflow-hidden"
+                >
+                  <div
+                    id="wc-bar"
+                    class="absolute top-0 left-0 h-full bg-blue-500 bar"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <span id="wc-score">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sensory Impact Section -->
+        <div class="grid grid-cols-1 gap-4">
+          <div>
+            <p class="text-xl font-semibold mb-4">Sensory Impact</p>
+
+            <div class="grid grid-cols-6 items-center gap-4">
+              <div class="col-span-1">
+                <p class="text-right opacity-60">Sensory Impact</p>
+              </div>
+
+              <div class="ml-5 md:ml-0 col-span-5 flex items-center gap-2">
+                <div
+                  class="w-full relative h-10 bg-gray-200 rounded overflow-hidden"
+                >
+                  <div
+                    id="si-bar"
+                    class="absolute top-0 left-0 h-full bg-orange-500 bar"
+                    style="width: 0%"
+                  ></div>
+                </div>
+                <span id="si-score">0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <script>
       // Mobile menu toggle
@@ -2955,7 +3083,7 @@
               <div class="grid grid-cols-4 gap-3 w-full">
                 <div>
                   <p class="uppercase text-center text-blue-500 font-bold">Social Inclusion</p>
-                  <div class="border rounded-lg overflow-hidden">
+                  <div class=" bg-white border rounded-lg overflow-hidden">
                     <p class="bg-gray-200 p-3 text-center">Expressed Social Inclusion</p>
                     <p class="p-6 text-center text-xl font-medium">${
                       score.EI
@@ -2964,7 +3092,7 @@
                 </div>
                 <div>
                   <p class="uppercase text-center text-cyan-500 font-bold">Decision Making</p>
-                  <div class="border rounded-lg overflow-hidden">
+                  <div class=" bg-white border rounded-lg overflow-hidden">
                     <p class="bg-gray-200 p-3 text-center">Expressed Decision Making</p>
                     <p class="p-6 text-center text-xl font-medium">${
                       score.EC
@@ -2973,7 +3101,7 @@
                 </div>
                 <div>
                   <p class="uppercase text-center text-slate-500 font-bold">Acceptance</p>
-                  <div class="border rounded-lg overflow-hidden">
+                  <div class=" bg-white border rounded-lg overflow-hidden">
                     <p class="bg-gray-200 p-3 text-center">Expressed Acceptance</p>
                     <p class="p-6 text-center text-xl font-medium">${
                       score.EA
@@ -2982,7 +3110,7 @@
                 </div>
                 <div>
                   <br />
-                  <div class="border rounded-lg overflow-hidden">
+                  <div class=" bg-white border rounded-lg overflow-hidden">
                     <p class="bg-green-500 text-white p-3 text-center">Total Expressed Behavior</p>
                     <p class="p-6 text-center text-xl font-medium">${totalExpressed}</p>
                   </div>
@@ -2994,19 +3122,19 @@
             <div class="flex relative w-[1024px] ml-3">
               <p class="-rotate-90 absolute top-1/2 right-[98.5%] text-purple-500 font-bold">WANTED</p>
               <div class="grid grid-cols-4 gap-3 w-full">
-                <div class="border rounded-lg overflow-hidden">
+                <div class=" bg-white border rounded-lg overflow-hidden">
                   <p class="bg-gray-200 p-3 text-center">Wanted Social Inclusion</p>
                   <p class="p-6 text-center text-xl font-medium">${score.WI}</p>
                 </div>
-                <div class="border rounded-lg overflow-hidden">
+                <div class=" bg-white border rounded-lg overflow-hidden">
                   <p class="bg-gray-200 p-3 text-center">Wanted Decision Making</p>
                   <p class="p-6 text-center text-xl font-medium">${score.WC}</p>
                 </div>
-                <div class="border rounded-lg overflow-hidden">
+                <div class=" bg-white border rounded-lg overflow-hidden">
                   <p class="bg-gray-200 p-3 text-center">Wanted Acceptance</p>
                   <p class="p-6 text-center text-xl font-medium">${score.WA}</p>
                 </div>
-                <div class="border rounded-lg overflow-hidden">
+                <div class=" bg-white border rounded-lg overflow-hidden">
                   <p class="bg-purple-500 text-white p-3 text-center">Total Wanted Behavior</p>
                   <p class="p-6 text-center text-xl font-medium">${totalWanted}</p>
                 </div>
@@ -3016,25 +3144,25 @@
             <!-- Overall Result -->
             <div class="flex relative w-[1024px] ml-3">
               <div class="grid grid-cols-4 gap-3 w-full">
-                <div class="border rounded-lg overflow-hidden">
+                <div class="border rounded-lg bg-white overflow-hidden">
                   <p class="bg-blue-500 text-white p-3 text-center">Total For Social Inclusion</p>
                   <p class="p-6 text-center text-xl font-medium">${
                     score.WI + score.EI
                   }</p>
                 </div>
-                <div class="border rounded-lg overflow-hidden">
+                <div class=" bg-white border rounded-lg overflow-hidden bg-white">
                   <p class="bg-cyan-500 text-white p-3 text-center">Total For Decision Making</p>
                   <p class="p-6 text-center text-xl font-medium">${
                     score.WC + score.EC
                   }</p>
                 </div>
-                <div class="border rounded-lg overflow-hidden">
+                <div class=" bg-white border rounded-lg overflow-hidden  bg-white">
                   <p class="bg-slate-500 p-3 text-center text-white">Total For Acceptance</p>
                   <p class="p-6 text-center text-xl font-medium">${
                     score.WA + score.EA
                   }</p>
                 </div>
-                <div class="border rounded-lg overflow-hidden">
+                <div class=" bg-white border rounded-lg overflow-hidden  bg-white">
                   <p class="bg-yellow-500 text-white p-3 text-center">Overall</p>
                   <p class="p-6 text-center text-xl font-medium">${overall}</p>
                 </div>
@@ -3059,6 +3187,20 @@
 
         calculateScore();
         renderResult();
+        document.getElementById("ei-bar").style.width = `${score.EI}%`;
+        document.getElementById("ei-score").textContent = `${score.EI}%`;
+
+        document.getElementById("wi-bar").style.width = `${score.WI}%`;
+        document.getElementById("wi-score").textContent = `${score.WI}%`;
+
+        document.getElementById("ec-bar").style.width = `${score.EC}%`;
+        document.getElementById("ec-score").textContent = `${score.EC}%`;
+
+        document.getElementById("wc-bar").style.width = `${score.WC}%`;
+        document.getElementById("wc-score").textContent = `${score.WC}%`;
+
+        document.getElementById("si-bar").style.width = `${score.SI}%`;
+        document.getElementById("si-score").textContent = `${score.SI}%`;
       }
 
       function findQuestion(questionId) {

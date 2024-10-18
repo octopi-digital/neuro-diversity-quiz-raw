@@ -193,9 +193,7 @@
       class="f shadow-md my-auto bg-gray-100 p-5 m-5 md:p-8 lg:p-10 max-w-lg mx-auto rounded-lg bg-white"
       id="patient-info"
     >
-      <h1
-        class="text-2xl font-bold text-[#1D126C] bg-gray-100 mb-6 text-center"
-      >
+      <h1 class="text-2xl font-bold text-[#1D126C] mb-6 text-center">
         Neurodivergent Workplace Inclusion Test
       </h1>
       <form id="patient-form">
@@ -232,6 +230,15 @@
       </form>
     </div>
     <!-- Patient Info Ends -->
+
+    <!-- Button for answering all questions for testing -->
+
+    <button
+      onclick="answerAllQuestionsRandomly()"
+      class="bg-blue-500 text-white px-4 py-2 rounded-md"
+    >
+      Answer all questions
+    </button>
 
     <div class="pb-16" id="quiz-app">
       <!-- Placeholder for Quiz content -->
@@ -2817,6 +2824,32 @@
         responses[questionId] = value;
         errors[questionId] = false; // Clear error for this question
         console.log(responses);
+      }
+
+      function answerAllQuestionsRandomly() {
+        console.log("answerAllQuestionsRandomly");
+
+        // Assuming your question sections are inside a `questions` array
+        questions[0].sections.forEach((section) => {
+          section.questions.forEach((question) => {
+            // Generate a random integer from 0 to 4
+            const randomAnswer = Math.floor(Math.random() * 5);
+
+            // Find the radio input for this question and answer it randomly
+            const inputSelector = `input[name="question_${question.question_id}"][value="${randomAnswer}"]`;
+            const inputElement = document.querySelector(inputSelector);
+
+            if (inputElement) {
+              inputElement.checked = true; // Check the radio button
+
+              // Update the responses object with the selected answer
+              responses[question.question_id] = randomAnswer;
+            }
+          });
+        });
+
+        // Log the updated responses object
+        console.log("Updated Responses: ", responses);
       }
 
       // Function to calculate and display the score

@@ -231,12 +231,12 @@
     </div>
     <!-- Patient Info Ends -->
 
-    <button
+    <!-- <button
       onclick="answerAllQuestionsRandomly()"
       class="bg-blue-500 text-white px-4 py-2 rounded-md mx-auto"
     >
       Answer All Questions
-    </button>
+    </button> -->
 
     <!-- Button for answering all questions for testing -->
 
@@ -2973,29 +2973,29 @@
         location.reload();
       }
 
-      function answerAllQuestionsRandomly() {
-        // Assuming your question sections are inside a `questions` array
-        questions[0].sections.forEach((section) => {
-          section.questions.forEach((question) => {
-            // Generate a random integer from 0 to 4
-            const randomAnswer = Math.floor(Math.random() * 5);
+      // function answerAllQuestionsRandomly() {
+      //   // Assuming your question sections are inside a `questions` array
+      //   questions[0].sections.forEach((section) => {
+      //     section.questions.forEach((question) => {
+      //       // Generate a random integer from 0 to 4
+      //       const randomAnswer = Math.floor(Math.random() * 5);
 
-            // Find the radio input for this question and answer it randomly
-            const inputSelector = `input[name="question_${question.question_id}"][value="${randomAnswer}"]`;
-            const inputElement = document.querySelector(inputSelector);
+      //       // Find the radio input for this question and answer it randomly
+      //       const inputSelector = `input[name="question_${question.question_id}"][value="${randomAnswer}"]`;
+      //       const inputElement = document.querySelector(inputSelector);
 
-            if (inputElement) {
-              inputElement.checked = true; // Check the radio button
+      //       if (inputElement) {
+      //         inputElement.checked = true; // Check the radio button
 
-              // Update the responses object with the selected answer
-              responses[question.question_id] = randomAnswer;
-            }
-          });
-        });
+      //         // Update the responses object with the selected answer
+      //         responses[question.question_id] = randomAnswer;
+      //       }
+      //     });
+      //   });
 
-        // Log the updated responses object
-        console.log("Updated Responses: ", responses);
-      }
+      //   // Log the updated responses object
+      //   console.log("Updated Responses: ", responses);
+      // }
 
       // Function to calculate and display the score
       const calculateScore = () => {
@@ -3218,7 +3218,13 @@
         console.log(responses);
         console.log(patientData);
 
-        
+        const data = {
+          responses,
+          patientData,
+          score
+        }
+
+        sendToWebhook(data)
 
         document.getElementById("ei-bar").style.width = `${score.EI}%`;
         document.getElementById("ei-score").textContent = `${score.EI}%`;
@@ -3335,6 +3341,26 @@
 
       // renderQuiz();
       // Quiz JS Ends
+
+      function sendToWebhook(data) {
+        fetch(
+          "https://services.leadconnectorhq.com/hooks/X11laCn76m2ZqQWTRr3w/webhook-trigger/cefc5cfe-9f15-46e2-9652-13c315a58c67",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Webhook Success:", data);
+          })
+          .catch((error) => {
+            console.error("Webhook Error:", error);
+          });
+      }
     </script>
   </body>
 </html>

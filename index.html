@@ -231,6 +231,13 @@
     </div>
     <!-- Patient Info Ends -->
 
+    <button
+      onclick="answerAllQuestionsRandomly()"
+      class="bg-blue-500 text-white px-4 py-2 rounded-md mx-auto"
+    >
+      Answer All Questions
+    </button>
+
     <!-- Button for answering all questions for testing -->
 
     <div class="pb-16" id="quiz-app">
@@ -2939,6 +2946,10 @@
       ];
 
       const responses = {};
+      const patientData = {
+        name: "",
+        email: "",
+      };
       let showResults = false;
       let errors = {};
       let score = {
@@ -2959,29 +2970,28 @@
       }
 
       function restart() {
-
         location.reload();
+      }
 
-        // answerAllQuestionsRandomly
-
+      function answerAllQuestionsRandomly() {
         // Assuming your question sections are inside a `questions` array
-        // questions[0].sections.forEach((section) => {
-        //   section.questions.forEach((question) => {
-        //     // Generate a random integer from 0 to 4
-        //     const randomAnswer = Math.floor(Math.random() * 5);
+        questions[0].sections.forEach((section) => {
+          section.questions.forEach((question) => {
+            // Generate a random integer from 0 to 4
+            const randomAnswer = Math.floor(Math.random() * 5);
 
-        //     // Find the radio input for this question and answer it randomly
-        //     const inputSelector = `input[name="question_${question.question_id}"][value="${randomAnswer}"]`;
-        //     const inputElement = document.querySelector(inputSelector);
+            // Find the radio input for this question and answer it randomly
+            const inputSelector = `input[name="question_${question.question_id}"][value="${randomAnswer}"]`;
+            const inputElement = document.querySelector(inputSelector);
 
-        //     if (inputElement) {
-        //       inputElement.checked = true; // Check the radio button
+            if (inputElement) {
+              inputElement.checked = true; // Check the radio button
 
-        //       // Update the responses object with the selected answer
-        //       responses[question.question_id] = randomAnswer;
-        //     }
-        //   });
-        // });
+              // Update the responses object with the selected answer
+              responses[question.question_id] = randomAnswer;
+            }
+          });
+        });
 
         // Log the updated responses object
         console.log("Updated Responses: ", responses);
@@ -3079,8 +3089,6 @@
         const totalExpressed = score.EI + score.EC + score.EA;
         const totalWanted = score.WI + score.WC + score.WA;
         const overall = totalExpressed + totalWanted;
-
-        console.log("score", score);
 
         const resultHTML = `
           <div class="space-y-3 grid grid-cols-1 mx-auto overflow-x-auto px-5 pb-2 ">
@@ -3201,7 +3209,17 @@
 
         calculateScore();
         renderResult();
+
+        const nameInput = document.getElementById("name").value;
+        const emailInput = document.getElementById("email").value;
+        patientData.email = emailInput
+        patientData.name = nameInput
         console.log(score);
+        console.log(responses);
+        console.log(patientData);
+
+        
+
         document.getElementById("ei-bar").style.width = `${score.EI}%`;
         document.getElementById("ei-score").textContent = `${score.EI}%`;
 

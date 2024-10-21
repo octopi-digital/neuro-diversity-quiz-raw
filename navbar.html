@@ -70,7 +70,6 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         list-style-type: none;
         padding: 10px;
-        margin-top: 10px;
         border-radius: 10px;
       }
 
@@ -127,21 +126,41 @@
         border-bottom: 1px solid #ddd;
         border-radius: 0px;
         margin-left: 0;
+        padding: 15px 10px;
+        height: 20px; /* Fixed height for menu items */
+        overflow: hidden; /* Hide submenu when not open */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: height 0.3s ease-in-out;
+      }
+
+      .mobile-menu .menu-item.expanded {
+        height: auto; /* Automatically adjust height when expanded */
       }
 
       .mobile-menu .donate-btn {
         width: 100%;
         margin-left: 0;
-        margin-top: 10px;
+        margin-top: 20px;
       }
 
       .submenu {
-        display: none;
+        height: 0;
         padding-left: 10px;
+
+        /* margin-top: 10px; */
+      }
+
+      .mobile-menu .submenu p {
+        background-color: whitesmoke;
+        padding: 10px;
+        border-radius: 5px;
       }
 
       .submenu.show {
-        display: block;
+        height: auto;
+        margin-top: -20px;
       }
 
       .show {
@@ -156,6 +175,10 @@
       @media (max-width: 768px) {
         .desktop-menu {
           display: none;
+        }
+        .menu-item:hover {
+          background-color: white;
+          color: black;
         }
 
         .hamburger {
@@ -217,8 +240,8 @@
             <a href="https://ndfnd.org/stanfordneurodiversity">Assessments</a>
             <ul class="dropdown-menu">
               <li>
-                <a href="https://assessment.ndfnd.org/"
-                  >Workplace Inclusion Test</a
+                <a href="https://assessment.ndfnd.org/">
+                  Workplace Inclusion Test</a
                 >
               </li>
               <li>
@@ -246,13 +269,13 @@
             <p onclick="toggleSubmenu('traits')">Traits</p>
             <div id="submenu-traits" class="submenu">
               <p>
-                <a href="https://ndfnd.org/autismstrengthtraits"
-                  >Strength Traits</a
+                <a href="https://ndfnd.org/autismstrengthtraits">
+                  Strength Traits</a
                 >
               </p>
               <p>
-                <a href="https://ndfnd.org/autism-growth-traits"
-                  >Growth Traits</a
+                <a href="https://ndfnd.org/autism-growth-traits">
+                  Growth Traits</a
                 >
               </p>
             </div>
@@ -314,6 +337,9 @@
 
       // Submenu toggle in mobile view
       function toggleSubmenu(id) {
+        const menuItem = document.getElementById(`submenu-${id}`).parentElement;
+        menuItem.classList.toggle("expanded");
+
         const submenu = document.getElementById(`submenu-${id}`);
         submenu.classList.toggle("show");
       }

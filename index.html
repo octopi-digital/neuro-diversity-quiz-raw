@@ -2953,13 +2953,13 @@
       let showResults = false;
       let errors = {};
       let score = {
-        EI: 0,
-        WI: 0,
-        EC: 0,
-        WC: 0,
-        EA: 0,
-        WA: 0,
-        SI: 0,
+        ExpressedSocialInclusion: 0,
+        WantedSocialInclusion: 0,
+        ExpressedDecissionMaking: 0,
+        WantedDecissionMaking: 0,
+        ExpressedAcceptance: 0,
+        WantedAcceptance: 0,
+        SensoryImpact: 0,
       };
 
       // Function to handle response changes
@@ -3007,13 +3007,13 @@
 
         // Initialize a score object for each section
         const newScore = {
-          EI: 0,
-          WI: 0,
-          EC: 0,
-          WC: 0,
-          EA: 0,
-          WA: 0,
-          SI: 0,
+          ExpressedSocialInclusion: 0,
+          WantedSocialInclusion: 0,
+          ExpressedDecissionMaking: 0,
+          WantedDecissionMaking: 0,
+          ExpressedAcceptance: 0,
+          WantedAcceptance: 0,
+          SensoryImpact: 0,
         };
 
         // Iterate through responses to calculate the score
@@ -3036,25 +3036,25 @@
               // Map section name to corresponding score category
               switch (sectionName) {
                 case "Demographics":
-                  newScore.EI += value;
+                  newScore.ExpressedSocialInclusion += value;
                   break;
                 case "Health History":
-                  newScore.WI += value;
+                  newScore.WantedSocialInclusion += value;
                   break;
                 case "Behavioral Health":
-                  newScore.EC += value;
+                  newScore.ExpressedDecissionMaking += value;
                   break;
                 case "Medical History":
-                  newScore.WC += value;
+                  newScore.WantedDecissionMaking += value;
                   break;
                 case "Family Medical History":
-                  newScore.EA += value;
+                  newScore.ExpressedAcceptance += value;
                   break;
                 case "Social History":
-                  newScore.WA += value;
+                  newScore.WantedAcceptance += value;
                   break;
                 case "Dietary Habits":
-                  newScore.SI += value;
+                  newScore.SensoryImpact += value;
                   break;
                 default:
                   console.warn(`Unrecognized section: ${sectionName}`);
@@ -3086,8 +3086,14 @@
 
       // Quiz Results JS starts
       function renderResult() {
-        const totalExpressed = score.EI + score.EC + score.EA;
-        const totalWanted = score.WI + score.WC + score.WA;
+        const totalExpressed =
+          score.ExpressedSocialInclusion +
+          score.ExpressedDecissionMaking +
+          score.ExpressedAcceptance;
+        const totalWanted =
+          score.WantedSocialInclusion +
+          score.WantedDecissionMaking +
+          score.WantedAcceptance;
         const overall = totalExpressed + totalWanted;
 
         const resultHTML = `
@@ -3101,7 +3107,7 @@
                   <div class=" bg-white border rounded-lg overflow-hidden">
                     <p class="bg-gray-200 p-3 text-center">Expressed Social Inclusion</p>
                     <p class="p-6 text-center text-xl font-medium">${
-                      score.EI
+                      score.ExpressedSocialInclusion
                     }</p>
                   </div>
                 </div>
@@ -3110,7 +3116,7 @@
                   <div class=" bg-white border rounded-lg overflow-hidden">
                     <p class="bg-gray-200 p-3 text-center">Expressed Decision Making</p>
                     <p class="p-6 text-center text-xl font-medium">${
-                      score.EC
+                      score.ExpressedDecissionMaking
                     }</p>
                   </div>
                 </div>
@@ -3119,7 +3125,7 @@
                   <div class=" bg-white border rounded-lg overflow-hidden">
                     <p class="bg-gray-200 p-3 text-center">Expressed Acceptance</p>
                     <p class="p-6 text-center text-xl font-medium">${
-                      score.EA
+                      score.ExpressedAcceptance
                     }</p>
                   </div>
                 </div>
@@ -3139,15 +3145,21 @@
               <div class="grid grid-cols-4 gap-3 w-full">
                 <div class=" bg-white border rounded-lg overflow-hidden">
                   <p class="bg-gray-200 p-3 text-center">Wanted Social Inclusion</p>
-                  <p class="p-6 text-center text-xl font-medium">${score.WI}</p>
+                  <p class="p-6 text-center text-xl font-medium">${
+                    score.WantedSocialInclusion
+                  }</p>
                 </div>
                 <div class=" bg-white border rounded-lg overflow-hidden">
                   <p class="bg-gray-200 p-3 text-center">Wanted Decision Making</p>
-                  <p class="p-6 text-center text-xl font-medium">${score.WC}</p>
+                  <p class="p-6 text-center text-xl font-medium">${
+                    score.WantedDecissionMaking
+                  }</p>
                 </div>
                 <div class=" bg-white border rounded-lg overflow-hidden">
                   <p class="bg-gray-200 p-3 text-center">Wanted Acceptance</p>
-                  <p class="p-6 text-center text-xl font-medium">${score.WA}</p>
+                  <p class="p-6 text-center text-xl font-medium">${
+                    score.WantedAcceptance
+                  }</p>
                 </div>
                 <div class=" bg-white border rounded-lg overflow-hidden">
                   <p class="bg-purple-500 text-white p-3 text-center">Total Wanted Behavior</p>
@@ -3162,19 +3174,19 @@
                 <div class="border rounded-lg bg-white overflow-hidden">
                   <p class="bg-blue-500 text-white p-3 text-center">Total For Social Inclusion</p>
                   <p class="p-6 text-center text-xl font-medium">${
-                    score.WI + score.EI
+                    score.WantedSocialInclusion + score.ExpressedSocialInclusion
                   }</p>
                 </div>
                 <div class=" bg-white border rounded-lg overflow-hidden bg-white">
                   <p class="bg-cyan-500 text-white p-3 text-center">Total For Decision Making</p>
                   <p class="p-6 text-center text-xl font-medium">${
-                    score.WC + score.EC
+                    score.WantedDecissionMaking + score.ExpressedDecissionMaking
                   }</p>
                 </div>
                 <div class=" bg-white border rounded-lg overflow-hidden  bg-white">
                   <p class="bg-slate-500 p-3 text-center text-white">Total For Acceptance</p>
                   <p class="p-6 text-center text-xl font-medium">${
-                    score.WA + score.EA
+                    score.WantedAcceptance + score.ExpressedAcceptance
                   }</p>
                 </div>
                 <div class=" bg-white border rounded-lg overflow-hidden  bg-white">
@@ -3212,8 +3224,8 @@
 
         const nameInput = document.getElementById("name").value;
         const emailInput = document.getElementById("email").value;
-        patientData.email = emailInput
-        patientData.name = nameInput
+        patientData.email = emailInput;
+        patientData.name = nameInput;
         console.log(score);
         console.log(responses);
         console.log(patientData);
@@ -3221,25 +3233,45 @@
         const data = {
           responses,
           patientData,
-          score
-        }
+          score,
+        };
 
-        sendToWebhook(data)
+        sendToWebhook(data);
 
-        document.getElementById("ei-bar").style.width = `${score.EI}%`;
-        document.getElementById("ei-score").textContent = `${score.EI}%`;
+        document.getElementById(
+          "ei-bar"
+        ).style.width = `${score.ExpressedSocialInclusion}%`;
+        document.getElementById(
+          "ei-score"
+        ).textContent = `${score.ExpressedSocialInclusion}%`;
 
-        document.getElementById("wi-bar").style.width = `${score.WI}%`;
-        document.getElementById("wi-score").textContent = `${score.WI}%`;
+        document.getElementById(
+          "wi-bar"
+        ).style.width = `${score.WantedSocialInclusion}%`;
+        document.getElementById(
+          "wi-score"
+        ).textContent = `${score.WantedSocialInclusion}%`;
 
-        document.getElementById("ec-bar").style.width = `${score.EC}%`;
-        document.getElementById("ec-score").textContent = `${score.EC}%`;
+        document.getElementById(
+          "ec-bar"
+        ).style.width = `${score.ExpressedDecissionMaking}%`;
+        document.getElementById(
+          "ec-score"
+        ).textContent = `${score.ExpressedDecissionMaking}%`;
 
-        document.getElementById("wc-bar").style.width = `${score.WC}%`;
-        document.getElementById("wc-score").textContent = `${score.WC}%`;
+        document.getElementById(
+          "wc-bar"
+        ).style.width = `${score.WantedDecissionMaking}%`;
+        document.getElementById(
+          "wc-score"
+        ).textContent = `${score.WantedDecissionMaking}%`;
 
-        document.getElementById("si-bar").style.width = `${score.SI}%`;
-        document.getElementById("si-score").textContent = `${score.SI}%`;
+        document.getElementById(
+          "si-bar"
+        ).style.width = `${score.SensoryImpact}%`;
+        document.getElementById(
+          "si-score"
+        ).textContent = `${score.SensoryImpact}%`;
       }
 
       function findQuestion(questionId) {

@@ -231,12 +231,12 @@
     </div>
     <!-- Patient Info Ends -->
 
-    <!-- <button
+    <button
       onclick="answerAllQuestionsRandomly()"
       class="bg-blue-500 text-white px-4 py-2 rounded-md mx-auto"
     >
       Answer All Questions
-    </button> -->
+    </button>
 
     <!-- Button for answering all questions for testing -->
 
@@ -252,7 +252,7 @@
     </div>
     <!-- Graph Section -->
     <div
-      class="mb-16 max-w-screen-lg mx-auto px-5 lg:px-0 bg-white rounded-lg p-5"
+      class="mb-16 max-w-screen-lg mx-auto px-5 lg:px-0 bg-white rounded-lg p-5 hidden"
       id="statisctics"
     >
       <div class="max-w-screen-lg mx-auto space-y-16 p-5">
@@ -390,6 +390,35 @@
       </div>
     </div>
 
+    <!-- Charts -->
+    <div class="p-5 rounded-lg bg-white space-y-6">
+      <div class="bg-white max-w-screen-lg mx-auto px-6">
+        <p class="text-center text-4xl text-[#1d126c] font-medium">
+          Social Inclusion
+        </p>
+        <div class="h-[180px] flex justify-center w-full bg-white">
+          <canvas id="si-graph" height="100"></canvas>
+        </div>
+      </div>
+      <div class="bg-white max-w-screen-lg mx-auto px-6">
+        <p class="text-center text-4xl text-[#1d126c] font-medium">
+          Decision Making
+        </p>
+        <div class="h-[180px] flex justify-center w-full">
+          <canvas id="dm-graph" height="100"></canvas>
+        </div>
+      </div>
+      <div class="bg-white max-w-screen-lg mx-auto px-6">
+        <p class="text-center text-4xl text-[#1d126c] font-medium">
+          Sensory Impact
+        </p>
+        <div class="h-[180px] flex justify-center w-full bg-white">
+          <canvas id="simp-graph" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
       // Mobile menu toggle
       const hamburgerBtn = document.getElementById("hamburger-btn");
@@ -2973,29 +3002,29 @@
         location.reload();
       }
 
-      // function answerAllQuestionsRandomly() {
-      //   // Assuming your question sections are inside a `questions` array
-      //   questions[0].sections.forEach((section) => {
-      //     section.questions.forEach((question) => {
-      //       // Generate a random integer from 0 to 4
-      //       const randomAnswer = Math.floor(Math.random() * 5);
+      function answerAllQuestionsRandomly() {
+        // Assuming your question sections are inside a `questions` array
+        questions[0].sections.forEach((section) => {
+          section.questions.forEach((question) => {
+            // Generate a random integer from 0 to 4
+            const randomAnswer = Math.floor(Math.random() * 5);
 
-      //       // Find the radio input for this question and answer it randomly
-      //       const inputSelector = `input[name="question_${question.question_id}"][value="${randomAnswer}"]`;
-      //       const inputElement = document.querySelector(inputSelector);
+            // Find the radio input for this question and answer it randomly
+            const inputSelector = `input[name="question_${question.question_id}"][value="${randomAnswer}"]`;
+            const inputElement = document.querySelector(inputSelector);
 
-      //       if (inputElement) {
-      //         inputElement.checked = true; // Check the radio button
+            if (inputElement) {
+              inputElement.checked = true; // Check the radio button
 
-      //         // Update the responses object with the selected answer
-      //         responses[question.question_id] = randomAnswer;
-      //       }
-      //     });
-      //   });
+              // Update the responses object with the selected answer
+              responses[question.question_id] = randomAnswer;
+            }
+          });
+        });
 
-      //   // Log the updated responses object
-      //   console.log("Updated Responses: ", responses);
-      // }
+        // Log the updated responses object
+        console.log("Updated Responses: ", responses);
+      }
 
       // Function to calculate and display the score
       const calculateScore = () => {
@@ -3206,7 +3235,7 @@
       // Quiz Results JS ends
 
       document.getElementById("result-container").classList.add("hidden");
-      document.getElementById("statisctics").classList.add("hidden");
+      // document.getElementById("statisctics").classList.add("hidden");
 
       function handleSubmit() {
         console.log("handle Submit triggered");
@@ -3217,7 +3246,7 @@
 
         document.getElementById("quiz-app").classList.add("hidden");
         document.getElementById("result-container").classList.remove("hidden");
-        document.getElementById("statisctics").classList.remove("hidden");
+        // document.getElementById("statisctics").classList.remove("hidden");
 
         calculateScore();
         renderResult();
@@ -3230,48 +3259,166 @@
         console.log(responses);
         console.log(patientData);
 
-        const data = {
+        const dataForWebHook = {
           responses,
           patientData,
           score,
         };
 
-        sendToWebhook(data);
+        sendToWebhook(dataForWebHook);
 
-        document.getElementById(
-          "ei-bar"
-        ).style.width = `${score.ExpressedSocialInclusion}%`;
-        document.getElementById(
-          "ei-score"
-        ).textContent = `${score.ExpressedSocialInclusion}%`;
+        const ctx = document.getElementById("si-graph").getContext("2d");
+        console.log("ESI: ", score);
+        const data = {
+          labels: ["Expressed", "Wanted"],
+          datasets: [
+            {
+              label: "",
+              data: [
+                score.ExpressedSocialInclusion,
+                score.WantedSocialInclusion,
+              ],
+              backgroundColor: "#FC963B",
+              barThickness: 30,
+            },
+          ],
+        };
 
-        document.getElementById(
-          "wi-bar"
-        ).style.width = `${score.WantedSocialInclusion}%`;
-        document.getElementById(
-          "wi-score"
-        ).textContent = `${score.WantedSocialInclusion}%`;
+        const options = {
+          indexAxis: "y", // Make the bars horizontal
+          scales: {
+            x: {
+              beginAtZero: true,
+              max: 30, // Set the maximum value to 30
+              ticks: {
+                stepSize: 5, // Set the step size to 5
+              },
+              grid: {
+                borderDash: [3, 3], // Dashed lines for the X-axis
+                color: "rgba(0, 0, 0, 0.1)", // Light gray lines for grid
+              },
+            },
+            y: {
+              grid: {
+                borderDash: [3, 3], // Dashed lines for the Y-axis as well
+                color: "rgba(0, 0, 0, 0.1)", // Light gray lines for grid
+                drawBorder: false, // Remove border around y-axis
+              },
+            },
+          },
+          plugins: {
+            legend: {
+              display: false,
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+        };
 
-        document.getElementById(
-          "ec-bar"
-        ).style.width = `${score.ExpressedDecissionMaking}%`;
-        document.getElementById(
-          "ec-score"
-        ).textContent = `${score.ExpressedDecissionMaking}%`;
+        const siGraph = new Chart(ctx, {
+          type: "bar",
+          data: data,
+          options: options,
+        });
 
-        document.getElementById(
-          "wc-bar"
-        ).style.width = `${score.WantedDecissionMaking}%`;
-        document.getElementById(
-          "wc-score"
-        ).textContent = `${score.WantedDecissionMaking}%`;
+        const dmCtx = document.getElementById("dm-graph").getContext("2d");
+        new Chart(dmCtx, {
+          type: "bar",
+          data: {
+            labels: ["Expressed", "Wanted"],
+            datasets: [
+              {
+                label: "",
+                data: [
+                  score.ExpressedDecissionMaking,
+                  score.WantedDecissionMaking,
+                ],
+                backgroundColor: "#FC963B",
+                barThickness: 30,
+              },
+            ],
+          },
+          options: {
+            indexAxis: "y", // Horizontal bar chart
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 30, // Adjust based on your data
+                ticks: {
+                  stepSize: 5,
+                },
+                grid: {
+                  borderDash: [3, 3],
+                  color: "rgba(0, 0, 0, 0.1)",
+                },
+              },
+              y: {
+                grid: {
+                  borderDash: [3, 3],
+                  color: "rgba(0, 0, 0, 0.1)",
+                  drawBorder: false,
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                enabled: true,
+              },
+            },
+          },
+        });
 
-        document.getElementById(
-          "si-bar"
-        ).style.width = `${score.SensoryImpact}%`;
-        document.getElementById(
-          "si-score"
-        ).textContent = `${score.SensoryImpact}%`;
+        // Chart for Sensory Impact
+        const siCtx = document.getElementById("simp-graph").getContext("2d");
+        new Chart(siCtx, {
+          type: "bar",
+          data: {
+            labels: ["Expressed", "Wanted"],
+            datasets: [
+              {
+                label: "",
+                data: [score.ExpressedAcceptance, score.WantedAcceptance],
+                backgroundColor: "#FC963B",
+                barThickness: 30,
+              },
+            ],
+          },
+          options: {
+            indexAxis: "y", // Horizontal bar chart
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 30, // Adjust based on your data
+                ticks: {
+                  stepSize: 5,
+                },
+                grid: {
+                  borderDash: [3, 3],
+                  color: "rgba(0, 0, 0, 0.1)",
+                },
+              },
+              y: {
+                grid: {
+                  borderDash: [3, 3],
+                  color: "rgba(0, 0, 0, 0.1)",
+                  drawBorder: false,
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                enabled: true,
+              },
+            },
+          },
+        });
       }
 
       function findQuestion(questionId) {

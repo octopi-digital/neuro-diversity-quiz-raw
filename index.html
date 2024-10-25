@@ -114,7 +114,7 @@
           <ul class="w-full flex flex-col items-start p-4 divide-y">
             <li class="w-full">
               <p
-                class="text-gray-900 w-full p-4 hover:bg-gray-200 rounded-md flex justify-between items-center"
+                class="text-gray-900 w-full p-4 hover:bg-[#746E5E] rounded-md flex justify-between items-center"
                 data-target="traits"
               >
                 Traits
@@ -122,7 +122,7 @@
             </li>
             <li class="w-full">
               <p
-                class="text-gray-900 w-full p-4 hover:bg-gray-200 rounded-md flex justify-between items-center"
+                class="text-gray-900 w-full p-4 hover:bg-[#746E5E] rounded-md flex justify-between items-center"
                 data-target="conditions"
               >
                 Conditions
@@ -130,7 +130,7 @@
             </li>
             <li class="w-full">
               <p
-                class="text-gray-900 w-full p-4 hover:bg-gray-200 rounded-md flex justify-between items-center"
+                class="text-gray-900 w-full p-4 hover:bg-[#746E5E] rounded-md flex justify-between items-center"
                 onclick="toggleSubmenu('diagnosis')"
               >
                 Diagnosis
@@ -3104,26 +3104,26 @@
               <div class="grid grid-cols-4 gap-3 w-full">
                 <div>
                   <p class="uppercase text-center text-blue-500 font-bold">Social Inclusion</p>
-                  <div class=" bg-white border rounded-lg overflow-hidden">
-                    <p class="bg-gray-200 p-3 text-center">Expressed Social Inclusion</p>
+                  <div class=" border-2 border-[#746E5E]  overflow-hidden">
+                    <p class="bg-[#746E5E] p-3 text-center text-white">Expressed Social Inclusion</p>
                     <p class="p-6 text-center text-xl font-medium">${
                       score.ExpressedSocialInclusion
                     }</p>
                   </div>
                 </div>
                 <div>
-                  <p class="uppercase text-center text-cyan-500 font-bold">Decision Making</p>
-                  <div class=" bg-white border rounded-lg overflow-hidden">
-                    <p class="bg-gray-200 p-3 text-center">Expressed Decision Making</p>
+                  <p class="uppercase text-center text-[#009EEC] font-bold">Decision Making</p>
+                  <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
+                    <p class="bg-[#746E5E] p-3 text-center text-white">Expressed Decision Making</p>
                     <p class="p-6 text-center text-xl font-medium">${
                       score.ExpressedDecissionMaking
                     }</p>
                   </div>
                 </div>
                 <div>
-                  <p class="uppercase text-center text-slate-500 font-bold">Acceptance</p>
-                  <div class=" bg-white border rounded-lg overflow-hidden">
-                    <p class="bg-gray-200 p-3 text-center">Expressed Acceptance</p>
+                  <p class="uppercase text-center text-[#1D126C] font-bold">Acceptance</p>
+                  <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
+                    <p class="bg-[#746E5E] p-3 text-center text-white ">Expressed Acceptance</p>
                     <p class="p-6 text-center text-xl font-medium">${
                       score.ExpressedAcceptance
                     }</p>
@@ -3131,8 +3131,8 @@
                 </div>
                 <div>
                   <br />
-                  <div class=" bg-white border rounded-lg overflow-hidden">
-                    <p class="bg-green-500 text-white p-3 text-center">Total Expressed Behavior</p>
+                  <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
+                    <p class="bg-[#39A281] text-white p-3 text-center">Total Expressed Behavior</p>
                     <p class="p-6 text-center text-xl font-medium">${totalExpressed}</p>
                   </div>
                 </div>
@@ -3141,28 +3141,28 @@
 
             <!-- Wanted Row -->
             <div class="flex relative w-[1024px] ml-3">
-              <p class="-rotate-90 absolute top-1/2 right-[98.5%] text-purple-500 font-bold">WANTED</p>
+              <p class="-rotate-90 absolute top-1/2 right-[98.5%] text-[#9B1980] font-bold">WANTED</p>
               <div class="grid grid-cols-4 gap-3 w-full">
-                <div class=" bg-white border rounded-lg overflow-hidden">
-                  <p class="bg-gray-200 p-3 text-center">Wanted Social Inclusion</p>
+                <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
+                  <p class="bg-[#746E5E] p-3 text-center text-white">Wanted Social Inclusion</p>
                   <p class="p-6 text-center text-xl font-medium">${
                     score.WantedSocialInclusion
                   }</p>
                 </div>
-                <div class=" bg-white border rounded-lg overflow-hidden">
-                  <p class="bg-gray-200 p-3 text-center">Wanted Decision Making</p>
+                <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
+                  <p class="bg-[#746E5E] p-3 text-center text-white">Wanted Decision Making</p>
                   <p class="p-6 text-center text-xl font-medium">${
                     score.WantedDecissionMaking
                   }</p>
                 </div>
-                <div class=" bg-white border rounded-lg overflow-hidden">
-                  <p class="bg-gray-200 p-3 text-center">Wanted Acceptance</p>
+                <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
+                  <p class="bg-[#746E5E] p-3 text-center text-white">Wanted Acceptance</p>
                   <p class="p-6 text-center text-xl font-medium">${
                     score.WantedAcceptance
                   }</p>
                 </div>
-                <div class=" bg-white border rounded-lg overflow-hidden">
-                  <p class="bg-purple-500 text-white p-3 text-center">Total Wanted Behavior</p>
+                <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
+                  <p class="bg-[#9B1980] text-white p-3 text-center">Total Wanted Behavior</p>
                   <p class="p-6 text-center text-xl font-medium">${totalWanted}</p>
                 </div>
               </div>
@@ -3171,26 +3171,26 @@
             <!-- Overall Result -->
             <div class="flex relative w-[1024px] ml-3">
               <div class="grid grid-cols-4 gap-3 w-full">
-                <div class="border rounded-lg bg-white overflow-hidden">
+                <div class="border-2 border-[#746E5E] bg-white overflow-hidden">
                   <p class="bg-blue-500 text-white p-3 text-center">Total For Social Inclusion</p>
                   <p class="p-6 text-center text-xl font-medium">${
                     score.WantedSocialInclusion + score.ExpressedSocialInclusion
                   }</p>
                 </div>
-                <div class=" bg-white border rounded-lg overflow-hidden bg-white">
-                  <p class="bg-cyan-500 text-white p-3 text-center">Total For Decision Making</p>
+                <div class=" bg-white border-2 border-[#746E5E] overflow-hidden bg-white">
+                  <p class="bg-[#009EEC] text-white p-3 text-center">Total For Decision Making</p>
                   <p class="p-6 text-center text-xl font-medium">${
                     score.WantedDecissionMaking + score.ExpressedDecissionMaking
                   }</p>
                 </div>
-                <div class=" bg-white border rounded-lg overflow-hidden  bg-white">
-                  <p class="bg-slate-500 p-3 text-center text-white">Total For Acceptance</p>
+                <div class=" bg-white border-2 border-[#746E5E] overflow-hidden  bg-white">
+                  <p class="bg-[#1D126C] p-3 text-center text-white">Total For Acceptance</p>
                   <p class="p-6 text-center text-xl font-medium">${
                     score.WantedAcceptance + score.ExpressedAcceptance
                   }</p>
                 </div>
-                <div class=" bg-white border rounded-lg overflow-hidden  bg-white">
-                  <p class="bg-yellow-500 text-white p-3 text-center">Overall</p>
+                <div class=" bg-white border-2 border-[#746E5E] overflow-hidden  bg-white">
+                  <p class="bg-[#E2D000] text-white p-3 text-center">Overall</p>
                   <p class="p-6 text-center text-xl font-medium">${overall}</p>
                 </div>
               </div>
@@ -3202,7 +3202,7 @@
       }
 
       // Render the result when the page loads
-      // renderResult();
+      renderResult();
       // Quiz Results JS ends
 
       document.getElementById("result-container").classList.add("hidden");

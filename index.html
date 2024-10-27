@@ -231,12 +231,14 @@
     </div>
     <!-- Patient Info Ends -->
 
-    <button
-      onclick="answerAllQuestionsRandomly()"
-      class="bg-blue-500 text-white px-4 py-2 rounded-md mx-auto"
-    >
-      Answer All Questions
-    </button>
+    <div id="answer_button" class="flex justify-center hidden">
+      <button
+        onclick="answerAllQuestionsRandomly()"
+        class="bg-blue-500 text-white px-4 py-2 rounded-md mx-auto"
+      >
+        Answer All Questions
+      </button>
+    </div>
 
     <!-- Button for answering all questions for testing -->
 
@@ -391,8 +393,8 @@
     </div>
 
     <!-- Charts -->
-    <div class="p-5 rounded-lg bg-white space-y-6">
-      <div class="bg-white max-w-screen-lg mx-auto px-6">
+    <div id="charts-container" class="p-5 rounded-lg bg-white space-y-6 hidden">
+      <div id="si-container" class="bg-white max-w-screen-lg mx-auto px-6">
         <p class="text-center text-2xl text-[#1d126c] font-semibold">
           Social Inclusion
         </p>
@@ -400,7 +402,7 @@
           <canvas id="si-graph" height="100"></canvas>
         </div>
       </div>
-      <div class="bg-white max-w-screen-lg mx-auto px-6">
+      <div id="dm-container" class="bg-white max-w-screen-lg mx-auto px-6">
         <p class="text-center text-2xl text-[#1d126c] font-medium">
           Decision Making
         </p>
@@ -408,7 +410,7 @@
           <canvas id="dm-graph" height="100"></canvas>
         </div>
       </div>
-      <div class="bg-white max-w-screen-lg mx-auto px-6">
+      <div id="simp-container" class="bg-white max-w-screen-lg mx-auto px-6">
         <p class="text-center text-2xl text-[#1d126c] font-medium">
           Sensory Impact
         </p>
@@ -3246,6 +3248,8 @@
 
         document.getElementById("quiz-app").classList.add("hidden");
         document.getElementById("result-container").classList.remove("hidden");
+        document.getElementById("charts-container").classList.remove("hidden");
+
         // document.getElementById("statisctics").classList.remove("hidden");
 
         calculateScore();
@@ -3454,6 +3458,7 @@
       function renderQuiz() {
         document.getElementById("patient-info").classList.add("hidden");
         document.getElementById("quiz-app").classList.remove("hidden");
+        document.getElementById("answer_button").classList.remove("hidden");
 
         document.getElementById("quiz-app").innerHTML = `
           <div class="max-w-screen-sm mx-auto  p-5">

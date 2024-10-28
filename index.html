@@ -700,66 +700,21 @@
           return;
         }
 
-        // Initialize a score object for each section
-        const newScore = {
-          ExpressedSocialInclusion: 0,
-          WantedSocialInclusion: 0,
-          ExpressedDecissionMaking: 0,
-          WantedDecissionMaking: 0,
-          ExpressedAcceptance: 0,
-          WantedAcceptance: 0,
-          SensoryImpact: 0,
-        };
+        // Define the questions for EI
+        const eiQuestions = [1, 3, 5, 7, 9, 11, 13, 15, 16, 38];
 
-        // Iterate through responses to calculate the score
-        Object.entries(responses).forEach(([key, value]) => {
-          // Find the question based on question_id
-          const question = questions[0].sections
-            .flatMap((section) => section.questions)
-            .find((q) => q.question_id == key);
+        // Calculate the EI score
+        const eiScore = eiQuestions.reduce(
+          (total, questionId) => total + responses[questionId], // Accessing the responses directly
+          0
+        );
 
-          if (question) {
-            // Determine the section of the found question
-            const section = questions[0].sections.find((sec) =>
-              sec.questions.some((q) => q.question_id === question.question_id)
-            );
+        console.log("EI Score", eiScore);
 
-            if (section) {
-              // Determine the category based on section name
-              const sectionName = section.name;
+        // Assign the EI score to the newScore object
+        score.ExpressedSocialInclusion = eiScore;
 
-              // Map section name to corresponding score category
-              switch (sectionName) {
-                case "Demographics":
-                  newScore.ExpressedSocialInclusion += value;
-                  break;
-                case "Health History":
-                  newScore.WantedSocialInclusion += value;
-                  break;
-                case "Behavioral Health":
-                  newScore.ExpressedDecissionMaking += value;
-                  break;
-                case "Medical History":
-                  newScore.WantedDecissionMaking += value;
-                  break;
-                case "Family Medical History":
-                  newScore.ExpressedAcceptance += value;
-                  break;
-                case "Social History":
-                  newScore.WantedAcceptance += value;
-                  break;
-                case "Dietary Habits":
-                  newScore.SensoryImpact += value;
-                  break;
-                default:
-                  console.warn(`Unrecognized section: ${sectionName}`);
-              }
-              score = newScore;
-            }
-          } else {
-            console.log("Question not found for Question ID:", key);
-          }
-        });
+        console.log("New Score Object:", score);
       };
 
       // Function to validate response

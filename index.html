@@ -767,13 +767,11 @@
         errors = {};
         let allValid = true;
 
-        questions[0].sections.map((section) => {
-          section.questions.forEach((question) => {
-            if (responses[question.question_id] === undefined) {
-              errors[question.question_id] = true;
-              allValid = false;
-            }
-          });
+        questions.forEach((question) => {
+          if (responses[question.question_id] === undefined) {
+            errors[question.question_id] = true;
+            allValid = false;
+          }
         });
 
         return allValid;

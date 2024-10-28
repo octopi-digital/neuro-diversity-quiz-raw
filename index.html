@@ -650,6 +650,107 @@
         },
       ];
 
+      const sensoryImpactTestQuestions = [
+        {
+          question_id: 1,
+          question_title:
+            "I enjoy listening to soft music while working/studying.",
+        },
+        {
+          question_id: 2,
+          question_title: "Bright colors in art and design don't distract me.",
+        },
+        {
+          question_id: 3,
+          question_title: "The smell of freshly baked bread is pleasant to me.",
+        },
+        {
+          question_id: 4,
+          question_title:
+            "I find the feeling of soft fabrics on my skin comfortable.",
+        },
+        {
+          question_id: 5,
+          question_title:
+            "I'm able to focus in quiet environments without distractions.",
+        },
+        {
+          question_id: 6,
+          question_title:
+            "Loud noises like construction equipment make me anxious or uncomfortable.",
+        },
+        {
+          question_id: 7,
+          question_title:
+            "I feel overwhelmed by the bright lights and colors in a shopping mall.",
+        },
+        {
+          question_id: 8,
+          question_title:
+            "The smell of strong perfumes or chemicals makes me feel unwell.",
+        },
+        {
+          question_id: 9,
+          question_title:
+            "I'm easily distracted by sudden movements or vibrations.",
+        },
+        {
+          question_id: 10,
+          question_title:
+            "Changes in routine or unexpected events cause me significant stress.",
+        },
+        {
+          question_id: 11,
+          question_title:
+            "I feel anxious or uncomfortable in crowded public spaces.",
+        },
+        {
+          question_id: 12,
+          question_title:
+            "Certain sounds, like background chatter or beeping devices, are distracting to me.",
+        },
+        {
+          question_id: 13,
+          question_title:
+            "I'm sensitive to strong tastes or smells that others might find unpleasant.",
+        },
+        {
+          question_id: 14,
+          question_title:
+            "The feeling of certain textures, like sandpaper or velvet, is unpleasant to me.",
+        },
+        {
+          question_id: 15,
+          question_title:
+            "I have difficulty filtering out background noises and focusing on a specific sound.",
+        },
+        {
+          question_id: 16,
+          question_title:
+            "I prefer to sit in a quiet, dimly lit area when working/studying.",
+        },
+        {
+          question_id: 17,
+          question_title:
+            "I enjoy activities that involve repetitive movements, like typing or drawing.",
+        },
+        {
+          question_id: 18,
+          question_title:
+            "The feeling of certain temperatures, like being too hot or cold, is uncomfortable to me.",
+        },
+        {
+          question_id: 19,
+          question_title:
+            "I'm sensitive to strong electromagnetic fields, like those from electronic devices or power lines.",
+        },
+        {
+          question_id: 20,
+          question_title:
+            "The feeling of being in a crowded space with multiple stimuli is overwhelming to me.",
+        },
+      ];
+
       const responses = {};
       let sensoryImpactResponses = {};
       let patientData = {
@@ -789,6 +890,28 @@
       function validateResponses() {
         errors = {};
         let allValid = true;
+
+        // Iterate over neurodivergent questions to collect responses
+        questions.forEach((_, questionIndex) => {
+          const selectedValue = document.querySelector(
+            `input[name="q-neuro-${questionIndex + 1}"]:checked`
+          );
+          // Store the selected value or null in the responses object
+          responses[questionIndex + 1] = selectedValue
+            ? parseInt(selectedValue.value)
+            : null;
+        });
+
+        // Iterate over sensory impact questions to collect responses
+        sensoryImpactTestQuestions.forEach((_, questionIndex) => {
+          const selectedValue = document.querySelector(
+            `input[name="q-sensory-${questionIndex + 1}"]:checked`
+          );
+          // Store the selected value or null in the sensoryImpactResponses object
+          sensoryImpactResponses[questionIndex + 1] = selectedValue
+            ? parseInt(selectedValue.value)
+            : null;
+        });
 
         questions.forEach((question) => {
           if (responses[question.question_id] === undefined) {
@@ -942,6 +1065,10 @@
         document.getElementById("charts-container").classList.remove("hidden");
 
         // document.getElementById("statisctics").classList.remove("hidden");
+
+        // Logging the results
+        console.log("updated responses", responses);
+        console.log("updated sensoryImpactResponses", sensoryImpactResponses);
 
         calculateScore();
         renderResult();
@@ -1177,109 +1304,6 @@
         document.getElementById("patient-info").classList.add("hidden");
         document.getElementById("quiz-app").classList.remove("hidden");
         document.getElementById("answer_button").classList.remove("hidden");
-
-        const sensoryImpactTestQuestions = [
-          {
-            question_id: 1,
-            question_title:
-              "I enjoy listening to soft music while working/studying.",
-          },
-          {
-            question_id: 2,
-            question_title:
-              "Bright colors in art and design don't distract me.",
-          },
-          {
-            question_id: 3,
-            question_title:
-              "The smell of freshly baked bread is pleasant to me.",
-          },
-          {
-            question_id: 4,
-            question_title:
-              "I find the feeling of soft fabrics on my skin comfortable.",
-          },
-          {
-            question_id: 5,
-            question_title:
-              "I'm able to focus in quiet environments without distractions.",
-          },
-          {
-            question_id: 6,
-            question_title:
-              "Loud noises like construction equipment make me anxious or uncomfortable.",
-          },
-          {
-            question_id: 7,
-            question_title:
-              "I feel overwhelmed by the bright lights and colors in a shopping mall.",
-          },
-          {
-            question_id: 8,
-            question_title:
-              "The smell of strong perfumes or chemicals makes me feel unwell.",
-          },
-          {
-            question_id: 9,
-            question_title:
-              "I'm easily distracted by sudden movements or vibrations.",
-          },
-          {
-            question_id: 10,
-            question_title:
-              "Changes in routine or unexpected events cause me significant stress.",
-          },
-          {
-            question_id: 11,
-            question_title:
-              "I feel anxious or uncomfortable in crowded public spaces.",
-          },
-          {
-            question_id: 12,
-            question_title:
-              "Certain sounds, like background chatter or beeping devices, are distracting to me.",
-          },
-          {
-            question_id: 13,
-            question_title:
-              "I'm sensitive to strong tastes or smells that others might find unpleasant.",
-          },
-          {
-            question_id: 14,
-            question_title:
-              "The feeling of certain textures, like sandpaper or velvet, is unpleasant to me.",
-          },
-          {
-            question_id: 15,
-            question_title:
-              "I have difficulty filtering out background noises and focusing on a specific sound.",
-          },
-          {
-            question_id: 16,
-            question_title:
-              "I prefer to sit in a quiet, dimly lit area when working/studying.",
-          },
-          {
-            question_id: 17,
-            question_title:
-              "I enjoy activities that involve repetitive movements, like typing or drawing.",
-          },
-          {
-            question_id: 18,
-            question_title:
-              "The feeling of certain temperatures, like being too hot or cold, is uncomfortable to me.",
-          },
-          {
-            question_id: 19,
-            question_title:
-              "I'm sensitive to strong electromagnetic fields, like those from electronic devices or power lines.",
-          },
-          {
-            question_id: 20,
-            question_title:
-              "The feeling of being in a crowded space with multiple stimuli is overwhelming to me.",
-          },
-        ];
 
         document.getElementById("quiz-app").innerHTML = `
         <div class="max-w-screen-sm mx-auto p-5">

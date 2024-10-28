@@ -649,13 +649,14 @@
       };
       let showResults = false;
       let errors = {};
+      // Initialize a score object for each section
       let score = {
         ExpressedSocialInclusion: 0,
         WantedSocialInclusion: 0,
-        ExpressedDecissionMaking: 0,
-        WantedDecissionMaking: 0,
-        ExpressedAcceptance: 0,
-        WantedAcceptance: 0,
+        ExpressedControl: 0,
+        WantedControl: 0,
+        ExpressedAffection: 0,
+        WantedAffection: 0,
         SensoryImpact: 0,
       };
 
@@ -700,36 +701,55 @@
           return;
         }
 
-        // Define the questions for EI
+        // Calculate scores for Expressed Inclusion (EI)
         const eiQuestions = [1, 3, 5, 7, 9, 11, 13, 15, 16, 38];
-
-        // Calculate the EI score
         const eiScore = eiQuestions.reduce(
-          (total, questionId) => total + responses[questionId], // Accessing the responses directly
+          (total, questionId) => total + responses[questionId],
           0
         );
-
-        console.log("EI Score", eiScore);
-
-        // Assign the EI score to the newScore object
         score.ExpressedSocialInclusion = eiScore;
 
-        console.log("New Score Object:", score);
-
-        // Define the questions for Wanted Inclusion (WI)
+        // Calculate scores for Wanted Inclusion (WI)
         const wiQuestions = [17, 21, 25, 27, 38, 40, 46, 51, 53, 58];
-
-        // Calculate the WI score
         const wiScore = wiQuestions.reduce(
-          (total, questionId) => total + responses[questionId], // Accessing the responses directly
+          (total, questionId) => total + responses[questionId],
           0
         );
-
-        console.log("WI Score", wiScore);
-
-        // Assign the WI score to the score object
         score.WantedSocialInclusion = wiScore;
 
+        // Calculate scores for Expressed Control (EC)
+        const ecQuestions = [18, 20, 22, 24, 26, 28, 31, 41, 47, 59];
+        const ecScore = ecQuestions.reduce(
+          (total, questionId) => total + responses[questionId],
+          0
+        );
+        score.ExpressedControl = ecScore;
+
+        // Calculate scores for Wanted Control (WC)
+        const wcQuestions = [2, 6, 12, 32, 36, 39, 42, 50, 55, 56];
+        const wcScore = wcQuestions.reduce(
+          (total, questionId) => total + responses[questionId],
+          0
+        );
+        score.WantedControl = wcScore;
+
+        // Calculate scores for Expressed Affection (EA)
+        const eaQuestions = [4, 8, 14, 33, 35, 37, 49, 54, 57, 60];
+        const eaScore = eaQuestions.reduce(
+          (total, questionId) => total + responses[questionId],
+          0
+        );
+        score.ExpressedAffection = eaScore;
+
+        // Calculate scores for Wanted Affection (WA)
+        const waQuestions = [10, 19, 23, 29, 34, 43, 44, 45, 48, 52];
+        const waScore = waQuestions.reduce(
+          (total, questionId) => total + responses[questionId],
+          0
+        );
+        score.WantedAffection = waScore;
+
+        // Output the final score object
         console.log("Score Object:", score);
       };
 
@@ -752,12 +772,12 @@
       function renderResult() {
         const totalExpressed =
           score.ExpressedSocialInclusion +
-          score.ExpressedDecissionMaking +
-          score.ExpressedAcceptance;
+          score.ExpressedControl +
+          score.ExpressedAffection;
         const totalWanted =
           score.WantedSocialInclusion +
-          score.WantedDecissionMaking +
-          score.WantedAcceptance;
+          score.WantedControl +
+          score.WantedAffection;
         const overall = totalExpressed + totalWanted;
         console.log("patient data: ", patientData);
         const resultHTML = `
@@ -785,7 +805,7 @@
                         <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
                           <p class="bg-[#746E5E] p-3 text-center text-white">Expressed Decision Making</p>
                           <p class="p-6 text-center text-xl font-medium">${
-                            score.ExpressedDecissionMaking
+                            score.ExpressedControl
                           }</p>
                         </div>
                       </div>
@@ -794,7 +814,7 @@
                         <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
                           <p class="bg-[#746E5E] p-3 text-center text-white ">Expressed Acceptance</p>
                           <p class="p-6 text-center text-xl font-medium">${
-                            score.ExpressedAcceptance
+                            score.ExpressedAffection
                           }</p>
                         </div>
                       </div>
@@ -821,13 +841,13 @@
                       <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
                         <p class="bg-[#746E5E] p-3 text-center text-white">Wanted Decision Making</p>
                         <p class="p-6 text-center text-xl font-medium">${
-                          score.WantedDecissionMaking
+                          score.WantedControl
                         }</p>
                       </div>
                       <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
                         <p class="bg-[#746E5E] p-3 text-center text-white">Wanted Acceptance</p>
                         <p class="p-6 text-center text-xl font-medium">${
-                          score.WantedAcceptance
+                          score.WantedAffection
                         }</p>
                       </div>
                       <div class=" bg-white border-2 border-[#746E5E] overflow-hidden">
@@ -850,14 +870,13 @@
                       <div class=" bg-white border-2 border-[#746E5E] overflow-hidden bg-white">
                         <p class="bg-[#009EEC] text-white p-3 text-center">Total For Decision Making</p>
                         <p class="p-6 text-center text-xl font-medium">${
-                          score.WantedDecissionMaking +
-                          score.ExpressedDecissionMaking
+                          score.WantedControl + score.ExpressedControl
                         }</p>
                       </div>
                       <div class=" bg-white border-2 border-[#746E5E] overflow-hidden  bg-white">
                         <p class="bg-[#1D126C] p-3 text-center text-white">Total For Acceptance</p>
                         <p class="p-6 text-center text-xl font-medium">${
-                          score.WantedAcceptance + score.ExpressedAcceptance
+                          score.WantedAffection + score.ExpressedAffection
                         }</p>
                       </div>
                       <div class=" bg-white border-2 border-[#746E5E] overflow-hidden  bg-white">
@@ -971,10 +990,7 @@
             datasets: [
               {
                 label: "",
-                data: [
-                  score.ExpressedDecissionMaking,
-                  score.WantedDecissionMaking,
-                ],
+                data: [score.ExpressedControl, score.WantedControl],
                 backgroundColor: "#FC963B",
                 barThickness: 30,
               },
@@ -1022,7 +1038,7 @@
             datasets: [
               {
                 label: "",
-                data: [score.ExpressedAcceptance, score.WantedAcceptance],
+                data: [score.ExpressedAffection, score.WantedAffection],
                 backgroundColor: "#FC963B",
                 barThickness: 30,
               },

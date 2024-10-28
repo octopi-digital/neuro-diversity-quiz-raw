@@ -643,6 +643,7 @@
       ];
 
       const responses = {};
+      let sensoryImpactResponses = {};
       let patientData = {
         name: "",
         email: "",
@@ -671,6 +672,7 @@
         location.reload();
       }
 
+      // Function to answer all questions randomly
       function answerAllQuestionsRandomly() {
         // Assuming your question sections are inside a `questions` array
         questions.forEach((question) => {
@@ -679,18 +681,33 @@
 
           // Find the radio input for this question and answer it randomly
           const inputSelector = `input[name="q-neuro-${question.question_id}"][value="${randomAnswer}"]`;
+          const sensoryInputSelector = `input[name="q-sensory-${question.question_id}"][value="${randomAnswer}"]`;
+
           const inputElement = document.querySelector(inputSelector);
+          const sensoryInputElement =
+            document.querySelector(sensoryInputSelector); // Corrected selector
 
           if (inputElement) {
             inputElement.checked = true; // Check the radio button
 
-            // Update the responses object with the selected answer
+            // Update the main responses object with the selected answer
             responses[question.question_id] = randomAnswer;
+          }
+
+          if (sensoryInputElement) {
+            sensoryInputElement.checked = true; // Check the radio button
+
+            // Update the sensory impact responses object with the selected answer
+            sensoryImpactResponses[question.question_id] = randomAnswer;
           }
         });
 
-        // Log the updated responses object
+        // Log the updated responses objects
         console.log("Updated Responses: ", responses);
+        console.log(
+          "Updated Sensory Impact Responses: ",
+          sensoryImpactResponses
+        );
       }
 
       // Function to calculate and display the score
@@ -748,6 +765,13 @@
           0
         );
         score.WantedAffection = waScore;
+
+        // Calculate the Sensory Impact score
+        const siScore = Object.values(sensoryImpactResponses).reduce(
+          (total, score) => total + score,
+          0
+        );
+        score.SensoryImpact = siScore;
 
         // Output the final score object
         console.log("Score Object:", score);
@@ -1114,26 +1138,106 @@
         document.getElementById("answer_button").classList.remove("hidden");
 
         const sensoryImpactTestQuestions = [
-          "I enjoy listening to soft music while working/studying.",
-          "Bright colors in art and design don't distract me.",
-          "The smell of freshly baked bread is pleasant to me.",
-          "I find the feeling of soft fabrics on my skin comfortable.",
-          "I'm able to focus in quiet environments without distractions.",
-          "Loud noises like construction equipment make me anxious or uncomfortable.",
-          "I feel overwhelmed by the bright lights and colors in a shopping mall.",
-          "The smell of strong perfumes or chemicals makes me feel unwell.",
-          "I'm easily distracted by sudden movements or vibrations.",
-          "Changes in routine or unexpected events cause me significant stress.",
-          "I feel anxious or uncomfortable in crowded public spaces.",
-          "Certain sounds, like background chatter or beeping devices, are distracting to me.",
-          "I'm sensitive to strong tastes or smells that others might find unpleasant.",
-          "The feeling of certain textures, like sandpaper or velvet, is unpleasant to me.",
-          "I have difficulty filtering out background noises and focusing on a specific sound.",
-          "I prefer to sit in a quiet, dimly lit area when working/studying.",
-          "I enjoy activities that involve repetitive movements, like typing or drawing.",
-          "The feeling of certain temperatures, like being too hot or cold, is uncomfortable to me.",
-          "I'm sensitive to strong electromagnetic fields, like those from electronic devices or power lines.",
-          "The feeling of being in a crowded space with multiple stimuli is overwhelming to me.",
+          {
+            question_id: 1,
+            question_title:
+              "I enjoy listening to soft music while working/studying.",
+          },
+          {
+            question_id: 2,
+            question_title:
+              "Bright colors in art and design don't distract me.",
+          },
+          {
+            question_id: 3,
+            question_title:
+              "The smell of freshly baked bread is pleasant to me.",
+          },
+          {
+            question_id: 4,
+            question_title:
+              "I find the feeling of soft fabrics on my skin comfortable.",
+          },
+          {
+            question_id: 5,
+            question_title:
+              "I'm able to focus in quiet environments without distractions.",
+          },
+          {
+            question_id: 6,
+            question_title:
+              "Loud noises like construction equipment make me anxious or uncomfortable.",
+          },
+          {
+            question_id: 7,
+            question_title:
+              "I feel overwhelmed by the bright lights and colors in a shopping mall.",
+          },
+          {
+            question_id: 8,
+            question_title:
+              "The smell of strong perfumes or chemicals makes me feel unwell.",
+          },
+          {
+            question_id: 9,
+            question_title:
+              "I'm easily distracted by sudden movements or vibrations.",
+          },
+          {
+            question_id: 10,
+            question_title:
+              "Changes in routine or unexpected events cause me significant stress.",
+          },
+          {
+            question_id: 11,
+            question_title:
+              "I feel anxious or uncomfortable in crowded public spaces.",
+          },
+          {
+            question_id: 12,
+            question_title:
+              "Certain sounds, like background chatter or beeping devices, are distracting to me.",
+          },
+          {
+            question_id: 13,
+            question_title:
+              "I'm sensitive to strong tastes or smells that others might find unpleasant.",
+          },
+          {
+            question_id: 14,
+            question_title:
+              "The feeling of certain textures, like sandpaper or velvet, is unpleasant to me.",
+          },
+          {
+            question_id: 15,
+            question_title:
+              "I have difficulty filtering out background noises and focusing on a specific sound.",
+          },
+          {
+            question_id: 16,
+            question_title:
+              "I prefer to sit in a quiet, dimly lit area when working/studying.",
+          },
+          {
+            question_id: 17,
+            question_title:
+              "I enjoy activities that involve repetitive movements, like typing or drawing.",
+          },
+          {
+            question_id: 18,
+            question_title:
+              "The feeling of certain temperatures, like being too hot or cold, is uncomfortable to me.",
+          },
+          {
+            question_id: 19,
+            question_title:
+              "I'm sensitive to strong electromagnetic fields, like those from electronic devices or power lines.",
+          },
+          {
+            question_id: 20,
+            question_title:
+              "The feeling of being in a crowded space with multiple stimuli is overwhelming to me.",
+          },
         ];
 
         document.getElementById("quiz-app").innerHTML = `
@@ -1200,9 +1304,9 @@
             .map(
               (question, questionIndex) => `
                 <div class="mb-4 bg-gray-100 rounded-lg p-3">
-                  <h4 class="font-semibold mb-2">${
-                    questionIndex + 1
-                  }. ${question}</h4>
+                  <h4 class="font-semibold mb-2">${questionIndex + 1}. ${
+                question.question_title
+              }</h4>
                   <div>
                     <label><input type="radio" name="q-sensory-${
                       questionIndex + 1

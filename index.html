@@ -1163,26 +1163,6 @@
         });
       }
 
-      function findQuestion(questionId) {
-        for (const section of questions) {
-          for (const question of section.questions) {
-            if (question.question_id === questionId) {
-              return question;
-            }
-          }
-        }
-        return null;
-      }
-
-      function findSectionName(questionId) {
-        for (const section of questions) {
-          if (section.questions.some((q) => q.question_id === questionId)) {
-            return section.name;
-          }
-        }
-        return null;
-      }
-
       function handleReset() {
         responses = {};
         errors = {};

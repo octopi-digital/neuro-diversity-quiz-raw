@@ -715,6 +715,22 @@
         score.ExpressedSocialInclusion = eiScore;
 
         console.log("New Score Object:", score);
+
+        // Define the questions for Wanted Inclusion (WI)
+        const wiQuestions = [17, 21, 25, 27, 38, 40, 46, 51, 53, 58];
+
+        // Calculate the WI score
+        const wiScore = wiQuestions.reduce(
+          (total, questionId) => total + responses[questionId], // Accessing the responses directly
+          0
+        );
+
+        console.log("WI Score", wiScore);
+
+        // Assign the WI score to the score object
+        score.WantedSocialInclusion = wiScore;
+
+        console.log("Score Object:", score);
       };
 
       // Function to validate response

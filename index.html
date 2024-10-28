@@ -274,6 +274,14 @@
           <canvas id="dm-graph" height="100"></canvas>
         </div>
       </div>
+      <div id="acceptance-container" class="bg-white max-w-screen-lg mx-auto">
+        <p class="text-center text-2xl text-[#1d126c] font-medium">
+          Acceptance
+        </p>
+        <div class="h-[180px] flex justify-center w-full bg-white">
+          <canvas id="acceptance-graph" height="100"></canvas>
+        </div>
+      </div>
       <div id="simp-container" class="bg-white max-w-screen-lg mx-auto">
         <p class="text-center text-2xl text-[#1d126c] font-medium">
           Sensory Impact
@@ -957,7 +965,7 @@
           labels: ["Expressed", "Wanted"],
           datasets: [
             {
-              label: "",
+              label: "Social Inclusion Score",
               data: [
                 score.ExpressedSocialInclusion,
                 score.WantedSocialInclusion,
@@ -973,7 +981,7 @@
           scales: {
             x: {
               beginAtZero: true,
-              max: 30, // Set the maximum value to 30
+              max: 45, // Set the maximum value to 30
               ticks: {
                 stepSize: 5, // Set the step size to 5
               },
@@ -992,7 +1000,7 @@
           },
           plugins: {
             legend: {
-              display: false,
+              display: true,
             },
             tooltip: {
               enabled: true,
@@ -1013,7 +1021,7 @@
             labels: ["Expressed", "Wanted"],
             datasets: [
               {
-                label: "",
+                label: "Decision Score",
                 data: [score.ExpressedControl, score.WantedControl],
                 backgroundColor: "#FC963B",
                 barThickness: 30,
@@ -1025,7 +1033,7 @@
             scales: {
               x: {
                 beginAtZero: true,
-                max: 30, // Adjust based on your data
+                max: 40, // Adjust based on your data
                 ticks: {
                   stepSize: 5,
                 },
@@ -1044,7 +1052,60 @@
             },
             plugins: {
               legend: {
-                display: false,
+                display: true,
+              },
+              tooltip: {
+                enabled: true,
+              },
+            },
+          },
+        });
+
+        // Chart for Acceptance
+        const acceptanceCtx = document
+          .getElementById("acceptance-graph")
+          .getContext("2d");
+        new Chart(acceptanceCtx, {
+          type: "bar",
+          data: {
+            labels: ["Expressed Affection", "Wanted Affection"],
+            datasets: [
+              {
+                label: "Acceptance Score",
+                data: [
+                  score.ExpressedAffection, // Assuming this holds the Expressed Acceptance score
+                  score.WantedAffection, // Assuming this holds the Wanted Acceptance score
+                ],
+                backgroundColor: "#FC963B",
+                barThickness: 30,
+              },
+            ],
+          },
+          options: {
+            indexAxis: "y", // Horizontal bar chart
+            scales: {
+              x: {
+                beginAtZero: true,
+                max: 40, // Adjust based on your data
+                ticks: {
+                  stepSize: 5,
+                },
+                grid: {
+                  borderDash: [3, 3],
+                  color: "rgba(0, 0, 0, 0.1)",
+                },
+              },
+              y: {
+                grid: {
+                  borderDash: [3, 3],
+                  color: "rgba(0, 0, 0, 0.1)",
+                  drawBorder: false,
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: true, // Show legend if needed
               },
               tooltip: {
                 enabled: true,
@@ -1061,8 +1122,8 @@
             labels: ["Sensory Impact"],
             datasets: [
               {
-                label: "",
-                data: [score.SensoryImpact],
+                label: "Sensory Impact Score",
+                data: [score.SensoryImpact], // Assuming this holds the Sensory Impact score
                 backgroundColor: "#FC963B",
                 barThickness: 30,
               },
@@ -1073,7 +1134,7 @@
             scales: {
               x: {
                 beginAtZero: true,
-                max: 30, // Adjust based on your data
+                max: 80, // Adjust based on your data
                 ticks: {
                   stepSize: 5,
                 },
@@ -1092,7 +1153,7 @@
             },
             plugins: {
               legend: {
-                display: false,
+                display: true, // Show legend if needed
               },
               tooltip: {
                 enabled: true,

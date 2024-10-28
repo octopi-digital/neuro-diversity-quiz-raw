@@ -886,17 +886,16 @@
         console.log("Score Object:", score);
       };
 
-      // Function to validate response
+      // Function to validate responses
       function validateResponses() {
-        errors = {};
         let allValid = true;
+        const errors = {}; // Initialize errors object
 
         // Iterate over neurodivergent questions to collect responses
         questions.forEach((_, questionIndex) => {
           const selectedValue = document.querySelector(
             `input[name="q-neuro-${questionIndex + 1}"]:checked`
           );
-          // Store the selected value or null in the responses object
           responses[questionIndex + 1] = selectedValue
             ? parseInt(selectedValue.value)
             : null;
@@ -907,18 +906,28 @@
           const selectedValue = document.querySelector(
             `input[name="q-sensory-${questionIndex + 1}"]:checked`
           );
-          // Store the selected value or null in the sensoryImpactResponses object
           sensoryImpactResponses[questionIndex + 1] = selectedValue
             ? parseInt(selectedValue.value)
             : null;
         });
 
+        // Validate neurodivergent responses
         questions.forEach((question) => {
-          if (responses[question.question_id] === undefined) {
+          if (responses[question.question_id] === null) {
             errors[question.question_id] = true;
             allValid = false;
           }
         });
+
+        // Validate sensory impact responses
+        sensoryImpactTestQuestions.forEach((question) => {
+          if (sensoryImpactResponses[question.question_id] === null) {
+            errors[question.question_id + 60] = true; // Adjust key for unique error ID
+            allValid = false;
+          }
+        });
+
+        console.log("errors:", errors);
 
         return allValid;
       }
@@ -1358,6 +1367,7 @@
                         `
                     }
                   </div>
+                  <p></p>
                 </div>
               `
             )

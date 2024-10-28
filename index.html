@@ -911,6 +911,88 @@
         document.getElementById("quiz-app").classList.remove("hidden");
         document.getElementById("answer_button").classList.remove("hidden");
 
+        const sensoryImpactTestQuestions = [
+          "I enjoy listening to soft music while working/studying.",
+          "Bright colors in art and design don't distract me.",
+          "The smell of freshly baked bread is pleasant to me.",
+          "I find the feeling of soft fabrics on my skin comfortable.",
+          "I'm able to focus in quiet environments without distractions.",
+          "Loud noises like construction equipment make me anxious or uncomfortable.",
+          "I feel overwhelmed by the bright lights and colors in a shopping mall.",
+          "The smell of strong perfumes or chemicals makes me feel unwell.",
+          "I'm easily distracted by sudden movements or vibrations.",
+          "Changes in routine or unexpected events cause me significant stress.",
+          "I feel anxious or uncomfortable in crowded public spaces.",
+          "Certain sounds, like background chatter or beeping devices, are distracting to me.",
+          "I'm sensitive to strong tastes or smells that others might find unpleasant.",
+          "The feeling of certain textures, like sandpaper or velvet, is unpleasant to me.",
+          "I have difficulty filtering out background noises and focusing on a specific sound.",
+          "I prefer to sit in a quiet, dimly lit area when working/studying.",
+          "I enjoy activities that involve repetitive movements, like typing or drawing.",
+          "The feeling of certain temperatures, like being too hot or cold, is uncomfortable to me.",
+          "I'm sensitive to strong electromagnetic fields, like those from electronic devices or power lines.",
+          "The feeling of being in a crowded space with multiple stimuli is overwhelming to me.",
+        ];
+
+        document.getElementById("quiz-app").innerHTML = `
+  <div class="max-w-screen-sm mx-auto p-5">
+    <!-- Neurodivergent Workplace Inclusion Test Section -->
+    <h1 class="text-2xl font-bold text-center mb-6">Neurodivergent Workplace Inclusion Test</h1>
+    ${questions
+      .map(
+        (question, questionIndex) => `
+          <div class="mb-4 bg-gray-100 rounded-lg p-3">
+            <h4 class="font-semibold mb-2">${
+              questionIndex + 1
+            }. ${question}</h4>
+            <div>
+              ${
+                questionIndex + 1 <= 30
+                  ? `
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="0"> Not at all</label><br>
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="1"> Sometimes</label><br>
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="2"> On Occasion</label><br>
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="3"> Most of the time</label><br>
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="4"> All the time</label>
+                  `
+                  : `
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="0"> No one</label><br>
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="1"> One or two individuals</label><br>
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="2"> Some individuals</label><br>
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="3"> A small group of individuals</label><br>
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="4"> Many individuals</label><br>
+                    <label><input type="radio" name="q-neuro-${questionIndex}" value="5"> Almost everyone</label>
+                  `
+              }
+            </div>
+          </div>
+        `
+      )
+      .join("")}
+
+    <!-- Sensory Impact Assessment Section -->
+    <h1 class="text-2xl font-bold text-center mb-6">Sensory Impact Assessment</h1>
+    ${sensoryImpactTestQuestions
+      .map(
+        (question, questionIndex) => `
+          <div class="mb-4 bg-gray-100 rounded-lg p-3">
+            <h4 class="font-semibold mb-2">${
+              questionIndex + 1
+            }. ${question}</h4>
+            <div>
+              <label><input type="radio" name="q-sensory-${questionIndex}" value="0"> Strongly disagree</label><br>
+              <label><input type="radio" name="q-sensory-${questionIndex}" value="1"> Somewhat disagree</label><br>
+              <label><input type="radio" name="q-sensory-${questionIndex}" value="2"> Neutral</label><br>
+              <label><input type="radio" name="q-sensory-${questionIndex}" value="3"> Somewhat agree</label><br>
+              <label><input type="radio" name="q-sensory-${questionIndex}" value="4"> Strongly agree</label>
+            </div>
+          </div>
+        `
+      )
+      .join("")}
+  </div>
+`;
+
         // document.getElementById("quiz-app").innerHTML = `
         //   <div class="max-w-screen-sm mx-auto p-5">
         //     <h1 class="text-2xl font-bold text-center mb-6">Neurodivergent Workplace Inclusion Test</h1>
@@ -971,42 +1053,6 @@
         //   </div>
         // `;
       }
-      document.getElementById("quiz-app").innerHTML = `
-    <div class="max-w-screen-sm mx-auto p-5">
-      <h1 class="text-2xl font-bold text-center mb-6">Neurodivergent Workplace Inclusion Test</h1>
-      ${questions
-        .map(
-          (question, questionIndex) => `
-          <div class="mb-4">
-            <h4 class="font-semibold mb-2">${
-              questionIndex + 1
-            }. ${question}</h4>
-            <div>
-              ${
-                questionIndex + 1 <= 30
-                  ? `
-                  <label><input type="radio" name="q${questionIndex}" value="0"> Not at all</label><br>
-                  <label><input type="radio" name="q${questionIndex}" value="1"> Sometimes</label><br>
-                  <label><input type="radio" name="q${questionIndex}" value="2"> On Occasion</label><br>
-                  <label><input type="radio" name="q${questionIndex}" value="3"> Most of the time</label><br>
-                  <label><input type="radio" name="q${questionIndex}" value="4"> All the time</label>
-                `
-                  : `
-                  <label><input type="radio" name="q${questionIndex}" value="0"> No one</label><br>
-                  <label><input type="radio" name="q${questionIndex}" value="1"> One or two individuals</label><br>
-                  <label><input type="radio" name="q${questionIndex}" value="2"> Some individuals</label><br>
-                  <label><input type="radio" name="q${questionIndex}" value="3"> A small group of individuals</label><br>
-                  <label><input type="radio" name="q${questionIndex}" value="4"> Many individuals</label><br>
-                  <label><input type="radio" name="q${questionIndex}" value="5"> Almost everyone</label>
-                `
-              }
-            </div>
-          </div>
-        `
-        )
-        .join("")}
-    </div>
-  `;
 
       // Initial render of the quiz
 

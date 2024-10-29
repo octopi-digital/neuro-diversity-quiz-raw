@@ -255,38 +255,44 @@
     <!-- Graph Section -->
 
     <!-- Charts -->
-    <div id="charts-container" class="rounded-lg space-y-6 hidden my-16">
-      <div id="si-container" class="bg-white max-w-screen-lg mx-auto">
+    <div
+      id="charts-container"
+      class="rounded-lg space-y-6 hidden my-16 flex flex-col justify-center"
+    >
+      <div id="si-container" class="bg-white mx-auto overflow-x-auto">
         <p class="text-center text-2xl text-[#1d126c] font-semibold">
           Social Inclusion
         </p>
         <div
-          class="h-[180px] flex justify-center w-full bg-white gap-4 overflow-x-auto"
+          class="h-[180px] flex justify-center w-[1024px] bg-white gap-4 overflow-x-auto"
         >
           <canvas id="si-graph" height="100"></canvas>
         </div>
       </div>
-      <div id="dm-container" class="bg-white max-w-screen-lg mx-auto">
+      <div id="dm-container" class="bg-white mx-auto overflow-x-auto">
         <p class="text-center text-2xl text-[#1d126c] font-medium">
           Decision Making
         </p>
-        <div class="h-[180px] flex justify-center w-full">
+        <div class="h-[180px] flex justify-center w-[1024px]">
           <canvas id="dm-graph" height="100"></canvas>
         </div>
       </div>
-      <div id="acceptance-container" class="bg-white max-w-screen-lg mx-auto">
+      <div
+        id="acceptance-container"
+        class="bg-white mx-auto overflow-x-auto overflow-x-auto"
+      >
         <p class="text-center text-2xl text-[#1d126c] font-medium">
           Acceptance
         </p>
-        <div class="h-[180px] flex justify-center w-full bg-white">
+        <div class="h-[180px] flex justify-center w-[1024px] bg-white">
           <canvas id="acceptance-graph" height="100"></canvas>
         </div>
       </div>
-      <div id="simp-container" class="bg-white max-w-screen-lg mx-auto">
+      <div id="simp-container" class="bg-white mx-auto overflow-x-auto">
         <p class="text-center text-2xl text-[#1d126c] font-medium">
           Sensory Impact
         </p>
-        <div class="h-[180px] flex justify-center w-full bg-white">
+        <div class="h-[180px] flex justify-center w-[1024px] bg-white">
           <canvas id="simp-graph" height="100"></canvas>
         </div>
       </div>
@@ -1207,7 +1213,7 @@
         new Chart(acceptanceCtx, {
           type: "bar",
           data: {
-            labels: ["Expressed ", "Wanted "],
+            labels: ["Expressed   ", "Wanted  "],
             datasets: [
               {
                 label: "Acceptance Score",
